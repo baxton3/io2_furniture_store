@@ -14,7 +14,7 @@ public class FinancialReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "type")
     private int type;

@@ -1,10 +1,7 @@
 package demo.demo.controller;
 
-import demo.demo.dto.request.AppUserRequest;
-import demo.demo.dto.response.AppUserResponse;
 import demo.demo.entity.AppUser;
-import demo.demo.mapper.AppUserMapper;
-import demo.demo.service.AppUserService;
+import demo.demo.repository.AppUserRepo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,30 +11,24 @@ import java.util.List;
 @RequestMapping("api/v1/user")
 public class UserController {
 
-    private final AppUserService appUserService;
-    private final AppUserMapper appUserMapper;
+    private final AppUserRepo appUserRepo;
 
-    public UserController(AppUserService appUserService, AppUserMapper appUserMapper) {
-        this.appUserService = appUserService;
-        this.appUserMapper = appUserMapper;
+    public UserController(AppUserRepo appUserRepo) {
+        this.appUserRepo = appUserRepo;
     }
 
     @GetMapping("get")
-    public List<AppUserResponse> getAppUsers() {
-        return appUserService.getAppUsers()
-                .stream()
-                .map(appUserMapper::mapToResponse)
-                .toList();
+    public List<AppUser> getAppUsers() {
+        return appUserRepo.findAll();
     }
 
     @PostMapping("add")
-    public void addAppUser(@RequestBody AppUserRequest appUserRequest) {
-        AppUser appUser = appUserMapper.mapToEntity(appUserRequest);
-        appUserService.addNewUser(appUser);
+    public AppUser addAppUser(@RequestBody AppUser appUser) {
+        return appUserRepo.save(appUser);
     }
 
     @DeleteMapping("delete/{userId}")
     public void deleteUser(@PathVariable Long userId) {
-        appUserService.deleteUser(userId);
+        appUserRepo.deleteById(userId);
     }
 }

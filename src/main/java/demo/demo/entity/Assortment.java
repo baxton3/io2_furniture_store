@@ -12,22 +12,23 @@ public class Assortment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "bathroom_id")
-    private Bathroom bathroom;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "bedroom_id")
-    private Bedroom bedroom;
+    @Column(name = "type")
+    private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "kitchen_id")
-    private Kitchen kitchen;
+    @Column(name = "room_type")
+    private String roomType;
 
-    @ManyToOne
-    @JoinColumn(name = "living_room_id")
-    private LivingRoom livingRoom;
+    @Column(name = "price")
+    private int price;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "availability")
+    private int availability;
 }

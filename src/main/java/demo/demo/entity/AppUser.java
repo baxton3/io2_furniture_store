@@ -29,9 +29,9 @@ public class AppUser {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", columnDefinition = "varchar(12) default 'USER'")
     Role role;
 
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "int(1) default 1")
     private int status;
 }

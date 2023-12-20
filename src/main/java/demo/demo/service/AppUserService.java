@@ -17,8 +17,8 @@ public class AppUserService {
         return appUserRepo.findAll();
     }
 
-    public AppUser addNewUser(AppUser appUser){
-        return appUserRepo.save(appUser);
+    public void addNewUser(AppUser appUser){
+        appUserRepo.save(appUser);
     }
 
     public void deleteUser(Long id){
