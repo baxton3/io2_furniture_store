@@ -10,4 +10,6 @@ import java.util.List;
 public interface AssortmentRepo extends JpaRepository<Assortment, Long> {
 
     List<Assortment> findAllByRoomType(String roomType);
+
+    Assortment findOneByIdAndRoomType(Long id, String roomType);
 }

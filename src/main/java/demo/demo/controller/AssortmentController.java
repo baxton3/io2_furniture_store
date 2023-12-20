@@ -17,36 +17,26 @@ public class AssortmentController {
     }
 
     @GetMapping("get")
-    public List<Assortment> getAssortment(){
+    public List<Assortment> getAssortment() {
         return assortmentRepo.findAll();
     }
-    @GetMapping("bathroom")
-    public List<Assortment> getBathroomAssortment(){
-        return assortmentRepo.findAllByRoomType("bathroom");
+
+    @GetMapping("{roomType}")
+    public List<Assortment> getAssortmentByRoomType(@PathVariable String roomType) {
+        return assortmentRepo.findAllByRoomType(roomType);
     }
 
-    @GetMapping("kitchen")
-    public List<Assortment> getKitchenAssortment(){
-        return assortmentRepo.findAllByRoomType("kitchen");
+    @GetMapping("{roomType}/{assortmentId}")
+    public Assortment getAssortmentByIdAndRoomType(@PathVariable String roomType, @PathVariable Long assortmentId){
+        return assortmentRepo.findOneByIdAndRoomType(assortmentId, roomType);
     }
-
-    @GetMapping("living_room")
-    public List<Assortment> getLivingRoomAssortment(){
-        return assortmentRepo.findAllByRoomType("livingRoom");
-    }
-
-    @GetMapping("bedroom")
-    public List<Assortment> getBedroomAssortment(){
-        return assortmentRepo.findAllByRoomType("bedroom");
-    }
-
     @PostMapping("add")
-    public Assortment addNewAssortment(@RequestBody Assortment assortment){
+    public Assortment addNewAssortment(@RequestBody Assortment assortment) {
         return assortmentRepo.save(assortment);
     }
 
     @DeleteMapping("delete/{assortmentId}")
-    public void deleteAssortment(@PathVariable Long assortmentId){
+    public void deleteAssortment(@PathVariable Long assortmentId) {
         assortmentRepo.deleteById(assortmentId);
     }
 }

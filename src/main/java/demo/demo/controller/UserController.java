@@ -1,6 +1,8 @@
 package demo.demo.controller;
 
+import demo.demo.dto.response.AppUserResponse;
 import demo.demo.entity.AppUser;
+import demo.demo.mapper.AppUserMapper;
 import demo.demo.repository.AppUserRepo;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +14,19 @@ import java.util.List;
 public class UserController {
 
     private final AppUserRepo appUserRepo;
+    private final AppUserMapper appUserMapper;
 
-    public UserController(AppUserRepo appUserRepo) {
+    public UserController(AppUserRepo appUserRepo, AppUserMapper appUserMapper) {
         this.appUserRepo = appUserRepo;
+        this.appUserMapper = appUserMapper;
     }
 
     @GetMapping("get")
-    public List<AppUser> getAppUsers() {
-        return appUserRepo.findAll();
+    public List<AppUserResponse> getAppUsers() {
+        return appUserRepo.findAll()
+                .stream()
+                .map(appUserMapper::mapToResponse)
+                .toList();
     }
 
     @PostMapping("add")
